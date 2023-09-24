@@ -1,0 +1,21 @@
+
+
+<div class="container text-center h-100">
+    <div class="d-flex justify-content-center align-items-center h-75">
+      <div class="col px-5">
+        <label class="form-label mt-3">Username</label>
+        <input [(ngModel)]="username" placeholder="Username" class="form-control" type="text" aria-label="default input example">
+
+        <label for="inputPassword5" class="form-label mt-5">Password</label>
+        <input [(ngModel)]="password" placeholder="Password" type="password" id="inputPassword5" class="form-control" aria-describedby="passwordHelpBlock">
+        <div *ngIf="incorrectCreds" id="passwordHelpBlock" class="form-text text-danger">
+            Incorrect login credentials. Please try again. 
+        </div>
+
+        <button type="button" class="btn btn-primary mt-5 w-100" (click)="loginBtnClick()">Login</button>
+        
+      </div>
+    </div>
+</div>
+
+

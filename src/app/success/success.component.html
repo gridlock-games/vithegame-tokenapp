@@ -1,0 +1,30 @@
+
+
+<div class="container text-center h-100">
+
+  <div class="row py-4 px-3 h-auto">
+    <div class="row justify-content-end">
+      <button class="btn-close" (click)="home()"></button>
+    </div>
+  </div>
+  
+  
+  <div class="row text-center h-75">
+      <div class="d-flex justify-content-center align-items-center">
+        <div class="col px-5">
+          <p>Successfully paid to</p>
+          <p class="fs-2"><b>Store 001</b></p>
+          <p class="fs-1"><b>{{amount}} &#11088;</b></p>
+  
+          <div class = "mb-3" style="border-top: 1px solid #0d6efd"></div>
+  
+          <p>Ref. No. {{refNum}}</p>
+          <p>{{currentDate | date: 'dd MMM yyyy hh:mm a'}}</p>
+  
+          <button type="button" class="mt-5 btn btn-primary w-100" (click)="home()">Go back to home page</button>
+  
+        </div>
+      </div>
+  </div>
+
+</div>

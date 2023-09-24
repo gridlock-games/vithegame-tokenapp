@@ -1,0 +1,17 @@
+
+<div class="container text-center h-100">
+    <div class="row justify-content-center align-items-center h-75">
+      <div class="col">
+        <p><b>Hi, {{username | titlecase}}!</b></p>
+
+        <p>Your star balance:</p>
+        <p class="fs-1"><b>{{stars}} &#11088;</b></p>
+
+        <button (click)="goToPaymentPage()" type="button" class="mt-5 btn btn-primary w-75">Pay with QR</button>
+
+        <br><br>
+        <button class="btn btn-outline-primary w-75 mt-5" (click)="logOut()">Logout</button>
+      </div>
+    </div>
+    
+</div>
