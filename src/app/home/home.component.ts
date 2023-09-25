@@ -1,7 +1,8 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, ViewChild } from '@angular/core';
 import { DataService } from '../service/data.service';
 import { Router } from '@angular/router';
 import { AuthService } from '../auth/auth.service';
+import { NgxScannerQrcodeComponent } from 'ngx-scanner-qrcode';
 
 @Component({
   selector: 'app-home',
@@ -24,16 +25,16 @@ export class HomeComponent implements OnInit {
   }
 
 
-
   ngOnInit() {
+    
     if (this.authService.isLoggedIn) {
-      this.logIn();
+      this.onLogIn();
     } else {
       this.router.navigate(['/login']);
     }
   }
 
-  logIn() {
+  onLogIn() {
     this.dataService.getStarsBalance(this.userId).subscribe((response: any) => {
       for (let i = 0; i < response.length; i++) {
         this.stars += response[i].token;
@@ -43,8 +44,8 @@ export class HomeComponent implements OnInit {
     })
   }
 
-  goToPaymentPage() {
-    this.router.navigate(['/payment']);
+  goToQrScanner() {
+    this.router.navigate(['/qrcodescanner']);
   }
 
   logOut() {

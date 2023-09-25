@@ -1,5 +1,5 @@
 import { Component, OnInit } from '@angular/core';
-import { Router } from '@angular/router';
+import { ActivatedRoute, Router, RouterOutlet } from '@angular/router';
 import { DataService } from '../service/data.service';
 import { AuthService } from '../auth/auth.service';
 
@@ -14,19 +14,22 @@ export class PaymentComponent implements OnInit {
   stars: number = 0;
   isInvalidAmt: boolean = false;
   userId: string | null = '';
+  storeId: string | null = '';
 
   constructor(
     private router: Router,
+    private activatedRoute: ActivatedRoute,
     private dataService: DataService,
     private authService: AuthService) {}
 
   ngOnInit() {
     this.stars = this.dataService.getStarsSession();
     this.userId = this.dataService.getUserIdSession();
+    this.storeId = this.dataService.getStoreIdSession();
 
-    if (!this.authService.isLoggedIn) {
-      this.router.navigate(['/login']);
-    }
+    // if (!this.authService.isLoggedIn) {
+    //   this.router.navigate(['/login']);
+    // }
   }
 
   payment() {
@@ -34,8 +37,7 @@ export class PaymentComponent implements OnInit {
     if (this.amount < this.stars) {
       this.isInvalidAmt = false;
       this.dataService.setAmountPaidSession(this.amount);
-      // TO DO: dynamic store ID 
-      const data = {'playerId': this.userId , 'storeId': '650fd699a4e9bc8730b00f0d', 'tokenCount': this.amount};
+      const data = {'playerId': this.userId , 'storeId': this.storeId, 'tokenCount': this.amount};
       this.dataService.userPaymentToStore(data).subscribe(response => {
         if (response) {
           this.router.navigate(['/success']);

@@ -30,6 +30,7 @@ export class LoginComponent implements OnInit {
 
     this.dataService.loginRequest(data).subscribe((response: any) => {
       if (response.login) {
+        console.log(response);
 
         // this.dataService.setUsernameSession(this.username);
         // this.dataService.setUserIdSession(response.userId);

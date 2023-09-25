@@ -26,7 +26,7 @@ export class DataService {
   }
 
   // TO DO: Dynamic store ID
-  public userPaymentToStore(data: {'playerId': string | null, 'storeId': string, 'tokenCount': number}) {
+  public userPaymentToStore(data: {'playerId': string | null, 'storeId': string | null, 'tokenCount': number}) {
     return this.httpClient.post(this.baseUrl + '/auth/users/chargePlayer', data);
   }
 
@@ -62,6 +62,14 @@ export class DataService {
 
   public getAmountPaidSession() {
     return Number(sessionStorage.getItem('amount'));
+  }
+
+  public setStoreIdSession(storeId: string) {
+    sessionStorage.setItem('storeId', storeId);
+  }
+
+  public getStoreIdSession() {
+    return sessionStorage.getItem('storeId');
   }
 
   public deleteAllSessions() {

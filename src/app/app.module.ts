@@ -13,6 +13,9 @@ import { SuccessComponent } from './success/success.component';
 import { MaintenanceComponent } from './maintenance/maintenance.component';
 import { authGuard } from './auth/auth.guard';
 import { StoreHomeComponent } from './store-home/store-home.component';
+import { NgxScannerQrcodeModule, LOAD_WASM } from 'ngx-scanner-qrcode';
+import { QRCodeModule } from 'angularx-qrcode';
+import { QrcodescannerComponent } from './qrcodescanner/qrcodescanner.component';
 
 
 const routes: Routes = [
@@ -20,11 +23,14 @@ const routes: Routes = [
   { path: 'login', component: LoginComponent},
   { path: 'home', component: HomeComponent, canActivate: [authGuard]},
   // { path: 'home', component: HomeComponent},
+  { path: 'qrcodescanner', component: QrcodescannerComponent},
   { path: 'payment', component: PaymentComponent},
   { path: 'success', component: SuccessComponent},
   { path: 'maintenance', component: MaintenanceComponent},
   { path: 'store-home', component: StoreHomeComponent}
 ];
+
+// LOAD_WASM().subscribe((res: any) => console.log('LOAD_WASM', res));
 
 @NgModule({
   declarations: [
@@ -34,14 +40,17 @@ const routes: Routes = [
     PaymentComponent,
     SuccessComponent,
     MaintenanceComponent,
-    StoreHomeComponent
+    StoreHomeComponent,
+    QrcodescannerComponent
   ],
   imports: [
     RouterModule.forRoot(routes),
     BrowserModule,
     AppRoutingModule,
     HttpClientModule,
-    FormsModule
+    FormsModule,
+    NgxScannerQrcodeModule,
+    QRCodeModule
   ],
   exports: [RouterModule],
   providers: [],
