@@ -13,20 +13,23 @@ export class SuccessComponent implements OnInit {
   refNum: string = '';
   currentDate: any;
   amount: any;
+  storeName: string | null = '';
 
   constructor(
     private router: Router,
     private dataService: DataService,
     private authService: AuthService
-    ) {}
+    ) {
+      // if (!this.authService.isLoggedIn) {
+      //   this.router.navigate(['/login']);
+      // }
+    }
 
   ngOnInit() {
-    if (!this.authService.isLoggedIn) {
-      this.router.navigate(['/login']);
-    }
     this.refNum = Date.now().toString();
     this.currentDate = new Date();
     this.amount = this.dataService.getAmountPaidSession();
+    this.storeName = this.dataService.getStoreNameSession();
   }
 
   home() {

@@ -25,9 +25,12 @@ export class DataService {
     return this.httpClient.get(this.baseUrl + '/auth/users/getStars/' + userId);
   }
 
-  // TO DO: Dynamic store ID
   public userPaymentToStore(data: {'playerId': string | null, 'storeId': string | null, 'tokenCount': number}) {
     return this.httpClient.post(this.baseUrl + '/auth/users/chargePlayer', data);
+  }
+
+  public getUserInfo(id: string) {
+    return this.httpClient.get(this.baseUrl + '/auth/users/getUser/' + id);
   }
 
   // GET & SET STORAGE SESSIONS
@@ -70,6 +73,14 @@ export class DataService {
 
   public getStoreIdSession() {
     return sessionStorage.getItem('storeId');
+  }
+
+  public setStoreNameSession(storeName: string) {
+    sessionStorage.setItem('storeName', storeName);
+  }
+
+  public getStoreNameSession() {
+    return sessionStorage.getItem('storeName');
   }
 
   public deleteAllSessions() {

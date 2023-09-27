@@ -32,6 +32,10 @@ export class PaymentComponent implements OnInit {
     // }
   }
 
+  cancel() {
+    this.router.navigate(['/home']);
+  }
+
   payment() {
 
     if (this.amount < this.stars) {
