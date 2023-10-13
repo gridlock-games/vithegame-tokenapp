@@ -15,17 +15,21 @@ export class PaymentComponent implements OnInit {
   isInvalidAmt: boolean = false;
   userId: string | null = '';
   storeId: string | null = '';
+  storeName: string | null = '';
+  refId: string | null = '';
+  currentDate: string | null = '';
 
   constructor(
     private router: Router,
     private activatedRoute: ActivatedRoute,
     private dataService: DataService,
-    private authService: AuthService) {}
+    private authService: AuthService) { }
 
   ngOnInit() {
     this.stars = this.dataService.getStarsSession();
     this.userId = this.dataService.getUserIdSession();
     this.storeId = this.dataService.getStoreIdSession();
+    this.storeName = this.dataService.getStoreNameSession();
 
     // if (!this.authService.isLoggedIn) {
     //   this.router.navigate(['/login']);
@@ -41,7 +45,14 @@ export class PaymentComponent implements OnInit {
     if (this.amount < this.stars) {
       this.isInvalidAmt = false;
       this.dataService.setAmountPaidSession(this.amount);
-      const data = {'playerId': this.userId , 'storeId': this.storeId, 'tokenCount': this.amount};
+      this.refId = Date.now().toString();
+      this.currentDate = new Date().toString();
+      const data = {
+        'playerId': this.userId, 'storeId': this.storeId, 'tokenCount': this.amount,
+        'refId': this.refId, 'transactionDate': this.currentDate
+      };
+      console.log(data);
+      this.dataService.setRefId(this.refId);
       this.dataService.userPaymentToStore(data).subscribe(response => {
         if (response) {
           this.router.navigate(['/success']);

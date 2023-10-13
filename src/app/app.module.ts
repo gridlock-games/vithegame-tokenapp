@@ -16,6 +16,8 @@ import { StoreHomeComponent } from './store-home/store-home.component';
 import { NgxScannerQrcodeModule, LOAD_WASM } from 'ngx-scanner-qrcode';
 import { QRCodeModule } from 'angularx-qrcode';
 import { QrcodescannerComponent } from './qrcodescanner/qrcodescanner.component';
+import { RegistrationComponent } from './registration/registration.component';
+import { OtpComponent } from './otp/otp.component';
 
 
 const routes: Routes = [
@@ -23,6 +25,7 @@ const routes: Routes = [
   { path: 'login', component: LoginComponent},
   { path: 'home', component: HomeComponent, canActivate: [authGuard]},
   // { path: 'home', component: HomeComponent},
+  { path: 'registration', component: RegistrationComponent },
   { path: 'qrcodescanner', component: QrcodescannerComponent},
   { path: 'payment', component: PaymentComponent},
   { path: 'success', component: SuccessComponent},
@@ -41,7 +44,9 @@ const routes: Routes = [
     SuccessComponent,
     MaintenanceComponent,
     StoreHomeComponent,
-    QrcodescannerComponent
+    QrcodescannerComponent,
+    RegistrationComponent,
+    OtpComponent
   ],
   imports: [
     RouterModule.forRoot(routes),

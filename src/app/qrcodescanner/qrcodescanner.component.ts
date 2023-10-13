@@ -19,8 +19,8 @@ export class QrcodescannerComponent implements OnInit {
 
   constructor(private router: Router,
     private dataService: DataService) {
-      // For QR Generator
-      // this.myAngularxQrCode = '1234';
+      // For QR Generator - store ID
+      // this.myAngularxQrCode = '6526915ec7461c8c8eeeaedc';
     }
 
   ngOnInit(): void {

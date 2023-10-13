@@ -21,12 +21,20 @@ export class DataService {
     return this.httpClient.post(this.baseUrl + '/auth/users/login', data);
   }
 
+  public createUser(data: {email: '', username: '', password: '', isPlayer: '', isVerified: '', tournamentType: []}){
+    return this.httpClient.post(this.baseUrl + '/auth/users/create', data);
+  }
+
   public getStarsBalance(userId: string | null) {
     return this.httpClient.get(this.baseUrl + '/auth/users/getStars/' + userId);
   }
 
-  public userPaymentToStore(data: {'playerId': string | null, 'storeId': string | null, 'tokenCount': number}) {
+  public userPaymentToStore(data: {'playerId': string | null, 'storeId': string | null, 'tokenCount': number, 'refId': string | null, 'transactionDate': string | null}) {
     return this.httpClient.post(this.baseUrl + '/auth/users/chargePlayer', data);
+  }
+
+  public addCreditToUser(data: {'playerId': string | null, 'tokenCount': number}) {
+    return this.httpClient.post(this.baseUrl + '/auth/users/creditPlayer', data);
   }
 
   public getUserInfo(id: string) {
@@ -81,6 +89,14 @@ export class DataService {
 
   public getStoreNameSession() {
     return sessionStorage.getItem('storeName');
+  }
+
+  public setRefId(setRefId: string) {
+    sessionStorage.setItem('setRefId', setRefId);
+  }
+
+  public getRefId() {
+    return sessionStorage.getItem('setRefId');
   }
 
   public deleteAllSessions() {

@@ -1,10 +1,52 @@
-import { Component } from '@angular/core';
+import { Component, OnInit } from '@angular/core';
+import { AuthService } from '../auth/auth.service';
+import { DataService } from '../service/data.service';
+import { Router } from '@angular/router';
 
 @Component({
   selector: 'app-store-home',
   templateUrl: './store-home.component.html',
   styleUrls: ['./store-home.component.css']
 })
-export class StoreHomeComponent {
+export class StoreHomeComponent implements OnInit {
+
+  userId: string | null = '';
+  username: string | null = '';
+  stars: number = 0;
+  transactions: any[] = [];
+  transactionData: any;
+
+
+  constructor (
+    private authService: AuthService,
+    private dataService: DataService,
+    private router: Router
+  ) {
+    this.userId = this.dataService.getUserIdSession();
+    this.username = this.dataService.getUsernameSession();
+  }
+
+  ngOnInit() {
+    this.dataService.getStarsBalance(this.userId).subscribe((response: any) => {
+      console.log(response);
+      this.transactions = response;
+      for (let i = 0; i < response.length; i++) {
+        this.stars += response[i].token;
+      }
+
+      this.dataService.setStarsSession(this.stars);
+    })
+  }
+
+  logOut() {
+    this.authService.logout();
+    this.dataService.deleteAllSessions();
+    this.router.navigate(['/login']);
+  }
+
+  selectedTransaction(t: any) {
+    this.transactionData = t;
+    console.log(this.transactionData);
+  }
 
 }

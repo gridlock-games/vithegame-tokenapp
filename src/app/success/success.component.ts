@@ -10,7 +10,7 @@ import { AuthService } from '../auth/auth.service';
 })
 export class SuccessComponent implements OnInit {
 
-  refNum: string = '';
+  refNum: string | null = '';
   currentDate: any;
   amount: any;
   storeName: string | null = '';
@@ -26,7 +26,7 @@ export class SuccessComponent implements OnInit {
     }
 
   ngOnInit() {
-    this.refNum = Date.now().toString();
+    this.refNum = this.dataService.getRefId();
     this.currentDate = new Date();
     this.amount = this.dataService.getAmountPaidSession();
     this.storeName = this.dataService.getStoreNameSession();

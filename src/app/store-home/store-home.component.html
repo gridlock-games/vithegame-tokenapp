@@ -1,1 +1,76 @@
-<p>store-home works!</p>
+<div class="container text-center h-100">
+    <div class="row justify-content-center h-100 mb-5">
+        <div class="col mt-5">
+            <img src="../../assets/tnc-morayta.png" class="rounded-circle mb-5" alt="Store Logo" width="200"
+                height="200">
+
+            <p>Total Vi Essence Balance:</p>
+            <p class="fs-1"><b>{{stars}} &#11088;</b></p>
+
+            <div class="mt-3 transaction-table lightgrey-border py-3">
+                <table class="table">
+                    <thead class="my-3">
+                        <th>Transaction</th>
+                        <th>Amount</th>
+                    </thead>
+                    <tbody>
+                        <tr *ngFor="let t of transactions" (click)="selectedTransaction(t)" data-bs-toggle="modal" data-bs-target="#exampleModal">
+                            <td>User 01</td>
+                            <td>{{t.token}}</td>
+                        </tr>
+                        <!-- <tr>
+                            <td>User 01</td>
+                            <td>5</td>
+                        </tr> -->
+                    </tbody>
+                </table>
+            </div>
+
+            <div class="modal fade" id="exampleModal" tabindex="-1" aria-labelledby="exampleModalLabel"
+                aria-hidden="true">
+                <div class="modal-dialog modal-fullscreen">
+                    <div class="modal-content">
+                        <div class="modal-header">
+                            <h5 class="modal-title" id="exampleModalLabel">Received Vi Essence from</h5>
+                            <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                        </div>
+                        <div class="modal-body">
+                            <div class="lightgrey-border py-3">
+                                <div class="row">
+                                    <div class="col">
+                                        <p class="fs-2"><b>User 001</b></p>
+                                    </div>
+                                </div>
+                                <div class="row">
+                                    <div class="col">
+                                        <p class="fs-3"><b>{{transactionData.token}} &#11088;</b></p>
+                                    </div>
+                                    <div class="col">
+                                        <small>{{transactionData.transactionDate | date: 'dd MMM yyyy hh:mm a'}}</small>
+                                    </div>
+                                </div>
+                                <div class="row mt-3">
+                                    <div class="col">Reference ID</div>
+                                    <div class="col">{{transactionData.refId}}</div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <br>
+
+            <button type="button" class="btn btn-outline-secondary w-75 mt-2">
+                <div uk-lightbox>
+                    <a data-caption="Show QR Code" class="uk-button" href="../../assets/tnc-qrcode.png">Show QR Code</a>
+                </div>
+            </button>
+            
+
+            
+            <button class="btn btn-outline-primary w-75 mt-3" (click)="logOut()">Logout</button>
+        </div>
+    </div>
+
+</div>

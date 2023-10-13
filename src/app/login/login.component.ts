@@ -29,8 +29,8 @@ export class LoginComponent implements OnInit {
     const data = {username: this.username, password: this.password};
 
     this.dataService.loginRequest(data).subscribe((response: any) => {
+      console.log(response);
       if (response.login) {
-        console.log(response);
 
         // this.dataService.setUsernameSession(this.username);
         // this.dataService.setUserIdSession(response.userId);
@@ -40,6 +40,8 @@ export class LoginComponent implements OnInit {
           if (this.authService.isLoggedIn) {
             this.dataService.setUsernameSession(this.username);
             this.dataService.setUserIdSession(response.userId); 
+            console.log(this.username);
+            console.log(response.userId);
             response.isPlayer === true ? this.router.navigate(['/home']) : this.router.navigate(['/store-home'])
           }
         });
@@ -50,6 +52,10 @@ export class LoginComponent implements OnInit {
     });
 
       
+  }
+
+  registrationBtnClick() {
+    this.router.navigate(['/registration']);
   }
 
 }

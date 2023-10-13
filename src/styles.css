@@ -3,3 +3,7 @@
 html, body {
     height: 100%;
 }
+
+textarea:focus, input:focus{
+    box-shadow: none !important;
+}
