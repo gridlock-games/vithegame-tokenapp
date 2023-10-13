@@ -22,6 +22,8 @@ export class HomeComponent implements OnInit {
   ) {
     this.userId = this.dataService.getUserIdSession();
     this.username = this.dataService.getUsernameSession();
+
+    console.log(this.userId);
   }
 
 

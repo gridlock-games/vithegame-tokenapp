@@ -2,6 +2,7 @@ import { Component, OnInit, ViewChild } from '@angular/core';
 import { Router } from '@angular/router';
 import { NgxScannerQrcodeComponent } from 'ngx-scanner-qrcode';
 import { DataService } from '../service/data.service';
+import { AuthService } from '../auth/auth.service';
 
 @Component({
   selector: 'app-qrcodescanner',
@@ -14,17 +15,17 @@ export class QrcodescannerComponent implements OnInit {
   isError: boolean = false;
 
   @ViewChild('action') action!: NgxScannerQrcodeComponent;
-  // myAngularxQrCode: any;
 
-
-  constructor(private router: Router,
-    private dataService: DataService) {
-      // For QR Generator - store ID
-      // this.myAngularxQrCode = '6526915ec7461c8c8eeeaedc';
+  constructor(
+    private router: Router,
+    private dataService: DataService,
+    private authService: AuthService) {
+      if (!this.authService.isLoggedIn) {
+        this.router.navigate(['/login']);
+      }
     }
 
-  ngOnInit(): void {
-  }
+  ngOnInit(): void {}
 
   ngAfterViewInit() {
     this.action.start();
@@ -41,7 +42,6 @@ export class QrcodescannerComponent implements OnInit {
     
     this.dataService.getUserInfo(this.storeId).subscribe(
       (res: any) => {
-        console.log(res);
         if (this.storeId && !res.isPlayer) {
           this.dataService.setStoreIdSession(this.storeId);
           this.dataService.setStoreNameSession(res.username);

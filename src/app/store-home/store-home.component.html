@@ -5,23 +5,24 @@
                 height="200">
 
             <p>Total Vi Essence Balance:</p>
-            <p class="fs-1"><b>{{stars}} &#11088;</b></p>
+            <h1 class="text-vi-gold display-1" style="font-weight: bolder;">
+                <img src="../../assets/essence.png" style="width: 40px;">
+                {{stars}} 
+              </h1>
 
-            <div *ngIf="transactions.length >= 1" class="mt-3 transaction-table lightgrey-border py-3">
+            
+            <div *ngIf="transactions.length >= 1" class="mt-3 transaction-table py-3">
                 <table class="table">
                     <thead class="my-3">
                         <th>Transaction</th>
                         <th>Amount</th>
                     </thead>
                     <tbody>
-                        <tr *ngFor="let t of transactions" (click)="selectedTransaction(t)" data-bs-toggle="modal" data-bs-target="#transactionModal">
-                            <td>User 01</td>
-                            <td>{{t?.token}}</td>
+                        <tr *ngFor="let t of transactions" (click)="selectedTransaction(t)" data-bs-toggle="modal" data-bs-target="#transactionModal"
+                        class="border-dark">
+                            <td class="bg-black text-white py-3">{{t.transactee.username}}</td>
+                            <td class="bg-black text-vi-gold">{{t?.token}}</td>
                         </tr>
-                        <!-- <tr>
-                            <td>User 01</td>
-                            <td>5</td>
-                        </tr> -->
                     </tbody>
                 </table>
             </div>
@@ -29,8 +30,8 @@
             <div class="modal fade" id="transactionModal" tabindex="-1" aria-labelledby="transactionModalLabel"
                 aria-hidden="true">
                 <div class="modal-dialog modal-fullscreen">
-                    <div class="modal-content">
-                        <div class="modal-header">
+                    <div class="modal-content bg-black">
+                        <div class="modal-header bg-vi-red">
                             <h5 class="modal-title" id="transactionModalLabel">Received Vi Essence from</h5>
                             <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
                         </div>
@@ -38,12 +39,15 @@
                             <div class="lightgrey-border py-3">
                                 <div class="row">
                                     <div class="col">
-                                        <p class="fs-2"><b>User 001</b></p>
+                                        <h1 class="text-vi-gold display-1 mt-3">{{transactionData?.transactee.username}}</h1>
                                     </div>
                                 </div>
-                                <div class="row">
+                                <div class="row mt-4">
                                     <div class="col">
-                                        <p class="fs-3"><b>{{transactionData?.token}} &#11088;</b></p>
+                                        <h1 class="text-vi-gold" style="font-weight: bolder;">
+                                            <img src="../../assets/essence.png" style="width: 40px;">
+                                            {{transactionData?.token}}
+                                        </h1>
                                     </div>
                                     <div class="col">
                                         <small>{{transactionData?.transactionDate | date: 'dd MMM yyyy hh:mm a'}}</small>
@@ -81,7 +85,7 @@
             
 
             
-            <button class="btn btn-outline-primary w-75 mt-3" (click)="logOut()">Logout</button>
+            <button class="btn btn-outline w-75 mt-3" (click)="logOut()">Logout</button>
         </div>
     </div>
 

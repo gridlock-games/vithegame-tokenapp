@@ -31,9 +31,9 @@ export class PaymentComponent implements OnInit {
     this.storeId = this.dataService.getStoreIdSession();
     this.storeName = this.dataService.getStoreNameSession();
 
-    // if (!this.authService.isLoggedIn) {
-    //   this.router.navigate(['/login']);
-    // }
+    if (!this.authService.isLoggedIn) {
+      this.router.navigate(['/login']);
+    }
   }
 
   cancel() {
@@ -45,14 +45,13 @@ export class PaymentComponent implements OnInit {
     if (this.amount < this.stars) {
       this.isInvalidAmt = false;
       this.dataService.setAmountPaidSession(this.amount);
-      this.refId = Date.now().toString() + this.randomString();
-      this.currentDate = new Date().toString();
+      this.refId = this.dataService.getRefId();
+      this.currentDate = this.dataService.getCurrentDate();
       const data = {
         'playerId': this.userId, 'storeId': this.storeId, 'tokenCount': this.amount,
         'refId': this.refId, 'transactionDate': this.currentDate
       };
-      console.log(data);
-      this.dataService.setRefId(this.refId);
+      this.dataService.setRefIdSession(this.refId);
       this.dataService.userPaymentToStore(data).subscribe(response => {
         if (response) {
           this.router.navigate(['/success']);
@@ -63,18 +62,6 @@ export class PaymentComponent implements OnInit {
     } else {
       this.isInvalidAmt = true;
     }
-  }
-
-  randomString() {
-    const length = 3;
-    const randomChars = 'ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789';
-    let result = '';
-
-    for (let i = 0; i < length; i++ ) {
-        result += randomChars.charAt(Math.floor(Math.random() * randomChars.length));
-    }
-    
-    return result;
   }
 
 }

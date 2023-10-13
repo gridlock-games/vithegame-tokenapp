@@ -1,16 +1,21 @@
 
 <div class="container text-center h-100">
-    <div class="row justify-content-center align-items-center h-75">
-      <div class="col">
-        <p><b>Hi, {{username | titlecase}}!</b></p>
+    <div class="row justify-content-center h-100 pt-5">
+      <div class="col mt-5">
+        <h4 class="text-vi-gold">Hello, {{username | titlecase}}!</h4>
 
-        <p>Your Vi essence balance:</p>
-        <p class="fs-1"><b>{{stars}} &#11088;</b></p>
+        <p class="mt-5">Available Balance</p>
 
-        <button (click)="goToQrScanner()" type="button" class="mt-5 btn btn-primary w-75">Pay with QR</button>
+        <h1 class="text-vi-gold display-1" style="font-weight: bolder;">
+          <img src="../../assets/essence.png" style="width: 40px;">
+          {{stars}} 
+        </h1>
 
-        <br><br>
-        <button class="btn btn-outline-primary w-75 mt-auto" (click)="logOut()">Logout</button>
+        <button (click)="goToQrScanner()" type="button" class="mt-5 btn btn-default w-50 p-3 rounded-pill">
+          <img src="../../assets/scan.png" alt=""> Pay
+        </button>
+
+        <button class="btn btn-outline w-75 position-absolute bottom-0 start-50 translate-middle-x mb-5" (click)="logOut()">Logout</button>
       </div>
     </div>
     

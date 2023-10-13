@@ -20,9 +20,9 @@ export class SuccessComponent implements OnInit {
     private dataService: DataService,
     private authService: AuthService
     ) {
-      // if (!this.authService.isLoggedIn) {
-      //   this.router.navigate(['/login']);
-      // }
+      if (!this.authService.isLoggedIn) {
+        this.router.navigate(['/login']);
+      }
     }
 
   ngOnInit() {

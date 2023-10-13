@@ -25,7 +25,8 @@ export class RegistrationComponent implements OnInit, OnDestroy {
   registrationData: any = {username: '', password: '', userType: '', tournamentType: []};
   tournamentType: any[] = [];
   isError: boolean = false;
-
+  isAlertShown: boolean = false;
+  disableRegBtn: boolean = false;
   
   constructor(
     private router: Router,
@@ -46,11 +47,8 @@ export class RegistrationComponent implements OnInit, OnDestroy {
       username: this.username,
       password: this.password,
       isPlayer: true,
-      isVerified: true,
       tournamentType: this.tournamentType
     };
-
-    console.log(this.registrationData);
 
     this.validateEmail();
     this.validateUsername();
@@ -65,9 +63,13 @@ export class RegistrationComponent implements OnInit, OnDestroy {
       this.subscription = this.dataService.createUser(this.registrationData).subscribe(
         (res: any) => {
         if (res) {
-          const data = {'playerId': res._id , 'tokenCount': 10};
-          this.dataService.addCreditToUser(data).subscribe(() => {
-            this.router.navigate(['/login']);
+          const data = {'playerId': res._id , 'tokenCount': 10, 'refId': this.dataService.getRefId(), 'transactionDate': this.dataService.getCurrentDate()};
+          this.dataService.addCreditToUser(data).subscribe((res: any) => {
+            this.isAlertShown = true;
+            this.disableRegBtn = true;
+            setTimeout(() => {
+              this.router.navigate(['/login']);
+            }, 3000);
           })
         }
       },
@@ -104,6 +106,5 @@ export class RegistrationComponent implements OnInit, OnDestroy {
     this.isIncorrectPassword = (this.password === '' || this.confirmPassword === '') ? false :
     (this.password !== this.confirmPassword) ? true : false;
   }
-
 
 }

@@ -21,7 +21,7 @@ export class DataService {
     return this.httpClient.post(this.baseUrl + '/auth/users/login', data);
   }
 
-  public createUser(data: {email: '', username: '', password: '', isPlayer: '', isVerified: '', tournamentType: []}){
+  public createUser(data: {email: '', username: '', password: '', isPlayer: '', tournamentType: []}){
     return this.httpClient.post(this.baseUrl + '/auth/users/create', data);
   }
 
@@ -33,12 +33,32 @@ export class DataService {
     return this.httpClient.post(this.baseUrl + '/auth/users/chargePlayer', data);
   }
 
-  public addCreditToUser(data: {'playerId': string | null, 'tokenCount': number}) {
+  public addCreditToUser(data: {'playerId': string | null, 'tokenCount': number, 'refId': string | null, 'transactionDate': string | null}) {
     return this.httpClient.post(this.baseUrl + '/auth/users/creditPlayer', data);
   }
 
   public getUserInfo(id: string) {
     return this.httpClient.get(this.baseUrl + '/auth/users/getUser/' + id);
+  }
+
+  public getRefId() {
+    return Date.now().toString() + this.randomString();
+  }
+
+  public getCurrentDate() {
+    return new Date().toString();
+  }
+
+  randomString() {
+    const length = 3;
+    const randomChars = 'ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789';
+    let result = '';
+
+    for (let i = 0; i < length; i++ ) {
+        result += randomChars.charAt(Math.floor(Math.random() * randomChars.length));
+    }
+    
+    return result;
   }
 
   // GET & SET STORAGE SESSIONS
@@ -91,11 +111,11 @@ export class DataService {
     return sessionStorage.getItem('storeName');
   }
 
-  public setRefId(setRefId: string) {
+  public setRefIdSession(setRefId: string) {
     sessionStorage.setItem('setRefId', setRefId);
   }
 
-  public getRefId() {
+  public getRefIdSession() {
     return sessionStorage.getItem('setRefId');
   }
 

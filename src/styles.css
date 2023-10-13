@@ -4,6 +4,45 @@ html, body {
     height: 100%;
 }
 
+body {
+    background-color: black !important;
+}
+
 textarea:focus, input:focus{
     box-shadow: none !important;
+}
+
+label, .text-vi-gold {
+    color: #DB7210;
+}
+
+.text-vi-red {
+    color: #A40000;
+}
+
+.bg-vi-red {
+    background-color: #A40000;
+}
+
+.btn-default {
+    color: white !important;
+    background-color: #A40000 !important;
+}
+
+.btn-outline {
+    color: #A40000 !important;
+    background-color: transparent !important;
+    border-color: #A40000 !important;
+}
+
+@font-face {
+    font-family: 'Nunito';
+    src: url('assets/fonts/Nunito/Nunito-VariableFont_wght.ttf') format('truetype');
+    font-weight: normal;
+    font-style: normal;
+}
+
+* {
+    font-family: 'Nunito';
+    color: white;
 }

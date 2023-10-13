@@ -32,9 +32,7 @@ export class StoreHomeComponent implements OnInit {
   }
 
   ngOnInit() {
-    console.log(this.userId);
     this.dataService.getStarsBalance(this.userId).subscribe((response: any) => {
-      console.log(response);
       this.transactions = response;
       for (let i = 0; i < response.length; i++) {
         this.stars += response[i].token;
@@ -52,7 +50,6 @@ export class StoreHomeComponent implements OnInit {
 
   selectedTransaction(t: any) {
     this.transactionData = t;
-    console.log(this.transactionData);
   }
 
 }
