@@ -1,7 +1,8 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, ViewChild } from '@angular/core';
 import { AuthService } from '../auth/auth.service';
 import { DataService } from '../service/data.service';
 import { Router } from '@angular/router';
+import { NgxScannerQrcodeComponent } from 'ngx-scanner-qrcode';
 
 @Component({
   selector: 'app-store-home',
@@ -16,6 +17,9 @@ export class StoreHomeComponent implements OnInit {
   transactions: any[] = [];
   transactionData: any;
 
+  @ViewChild('action') action!: NgxScannerQrcodeComponent;
+  myAngularxQrCode: any;
+
 
   constructor (
     private authService: AuthService,
@@ -24,9 +28,11 @@ export class StoreHomeComponent implements OnInit {
   ) {
     this.userId = this.dataService.getUserIdSession();
     this.username = this.dataService.getUsernameSession();
+    this.myAngularxQrCode = this.userId;
   }
 
   ngOnInit() {
+    console.log(this.userId);
     this.dataService.getStarsBalance(this.userId).subscribe((response: any) => {
       console.log(response);
       this.transactions = response;

@@ -45,7 +45,7 @@ export class PaymentComponent implements OnInit {
     if (this.amount < this.stars) {
       this.isInvalidAmt = false;
       this.dataService.setAmountPaidSession(this.amount);
-      this.refId = Date.now().toString();
+      this.refId = Date.now().toString() + this.randomString();
       this.currentDate = new Date().toString();
       const data = {
         'playerId': this.userId, 'storeId': this.storeId, 'tokenCount': this.amount,
@@ -63,6 +63,18 @@ export class PaymentComponent implements OnInit {
     } else {
       this.isInvalidAmt = true;
     }
+  }
+
+  randomString() {
+    const length = 3;
+    const randomChars = 'ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789';
+    let result = '';
+
+    for (let i = 0; i < length; i++ ) {
+        result += randomChars.charAt(Math.floor(Math.random() * randomChars.length));
+    }
+    
+    return result;
   }
 
 }
