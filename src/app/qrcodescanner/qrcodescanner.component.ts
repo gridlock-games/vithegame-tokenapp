@@ -31,6 +31,17 @@ export class QrcodescannerComponent implements OnInit {
   ngAfterViewInit() {
     this.action.start();
     this.action.isBeep = false;
+
+    const playDeviceFacingBack = (devices: any[]) => {
+      // front camera or back camera check here!
+      const device = devices.find(f => (/back|rear|environment/gi.test(f.label))); // Default Back Facing Camera
+      this.action.playDevice(device ? device.deviceId : devices[0].deviceId);
+    }
+
+    const fn = 'start';
+    this.action[fn](playDeviceFacingBack).subscribe({
+      next: (r: any) => {console.log(fn, r), alert}
+    });
   }
 
   home() {

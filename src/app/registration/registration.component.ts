@@ -66,7 +66,6 @@ export class RegistrationComponent implements OnInit, OnDestroy {
 
       this.subscription = this.dataService.createUser(this.registrationData).subscribe({
         next: (res: any) => {
-          console.log(res);
           // mes: 'Account Already exists';
           if(res.mes) {
             this.isError = true;
@@ -98,8 +97,6 @@ export class RegistrationComponent implements OnInit, OnDestroy {
     } else {
       this.tournamentType.splice(index, 1);
     }
-
-    console.log(this.tournamentType);
   }
 
   validateEmail() {
