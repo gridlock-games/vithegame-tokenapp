@@ -612,7 +612,7 @@ var _class;
 class DataService {
   constructor(httpClient) {
     this.httpClient = httpClient;
-    this.baseUrl = 'http://localhost:7070';
+    this.baseUrl = 'https://us-central1-vithegame.cloudfunctions.net/api';
     this.username = '';
   }
   // sample get request

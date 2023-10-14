@@ -6,7 +6,7 @@ import { Injectable } from '@angular/core';
 })
 export class DataService {
 
-  baseUrl = 'http://localhost:7070';
+  baseUrl = 'https://us-central1-vithegame.cloudfunctions.net/api';
   username: string = '';
 
   constructor(private httpClient: HttpClient) { }
