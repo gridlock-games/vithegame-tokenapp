@@ -1,7 +1,7 @@
 
-<div class="bg-vi-red position-absolute top-0 text-center w-100" style="height: 80px;">
+<div class="bg-vi-red position-absolute top-0 text-center w-100 banner-height">
   <p class="mt-5">Payment to store</p>
-  <button class="btn-close position-absolute top-0 end-0 m-2" (click)="cancel()"></button>
+  <button class="btn-close btn-close-white position-absolute top-0 end-0 m-2" (click)="cancel()"></button>
 </div>
 
 <div class="container text-center h-100">
@@ -22,9 +22,11 @@
 
       <br>
 
-      <button type="button" class="mt-3 btn btn-default w-100 p-2" (click)="payment()">PAY</button>
-
-      <!-- <button class="btn btn-outline w-75 mt-5" (click)="cancel()">CANCEL</button> -->
+      <button *ngIf="!disablePayBtn" type="button" class="mt-3 btn btn-default w-100 p-2" (click)="payment()" [disabled]="disablePayBtn">PAY</button>
+      <button *ngIf="disablePayBtn" type="button" class="mt-3 btn btn-default w-100 p-2" disabled>
+        <span class="spinner-border spinner-border-sm" role="status" aria-hidden="true"></span>
+         Processing payment
+      </button>
 
     </div>
   </div>

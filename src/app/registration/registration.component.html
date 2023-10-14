@@ -1,6 +1,6 @@
 <div class="container text-center h-100">
     <div class="d-flex justify-content-center align-items-center h-100">
-        <div *ngIf="isAlertShown" class="alert alert-success position-absolute top-0" role="alert">
+        <div *ngIf="isSuccessAlert" class="alert alert-success position-absolute top-0" role="alert">
             Registration success! Please check email for account verification.
         </div>
         <div class="col px-5">
@@ -53,11 +53,20 @@
                 </div>
             </div>
 
-            <button type="button" class="btn btn-default mt-5 w-100 p-2"
-                (click)="registrationBtnClick()" [disabled]="disableRegBtn">Register</button>
+            <button *ngIf="!disableRegBtn" type="button" class="btn btn-default mt-5 w-100 p-2" (click)="registrationBtnClick()"
+                [disabled]="disableRegBtn">Register</button>
 
-            <div *ngIf="isError" class="form-text text-danger">
+            <button *ngIf="disableRegBtn" type="button" class="mt-5 btn btn-default w-100 p-2" disabled>
+                <span class="spinner-border spinner-border-sm" role="status" aria-hidden="true"></span>
+                Loading...
+            </button>
+
+            <div *ngIf="isError && !isAcctExisting" class="form-text text-danger">
                 There is an error in registering your account. Please try again later.
+            </div>
+
+            <div *ngIf="isError && isAcctExisting" class="form-text text-danger">
+                Account already exists. Please use another email. 
             </div>
 
         </div>

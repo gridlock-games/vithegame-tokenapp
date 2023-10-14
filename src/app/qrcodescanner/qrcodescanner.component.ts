@@ -13,6 +13,7 @@ export class QrcodescannerComponent implements OnInit {
 
   storeId: string = '';
   isError: boolean = false;
+  isRedirecting: boolean = false;
 
   @ViewChild('action') action!: NgxScannerQrcodeComponent;
 
@@ -39,20 +40,22 @@ export class QrcodescannerComponent implements OnInit {
 
   public onEvent(e: any[]): void {
     this.storeId = e[0].value;
-    
-    this.dataService.getUserInfo(this.storeId).subscribe(
-      (res: any) => {
-        if (this.storeId && !res.isPlayer) {
-          this.dataService.setStoreIdSession(this.storeId);
-          this.dataService.setStoreNameSession(res.username);
-          this.isError = false;
-          this.action.stop();
-          this.router.navigate(['/payment']);
-        }
-      },
-      err => {this.isError = true;}
-    );
+    if (this.storeId) {
+      this.action.stop();
+      this.isRedirecting = true;
 
+      this.dataService.getUserInfo(this.storeId).subscribe({
+        next: (res: any) => {
+          if (this.storeId && !res.isPlayer) {
+            this.dataService.setStoreIdSession(this.storeId);
+            this.dataService.setStoreNameSession(res.username);
+            this.router.navigate(['/payment']);
+          }
+        },
+        error: (error) => {
+          this.isError = true;}
+      });
+    }
     
   }
 

@@ -25,8 +25,10 @@ export class RegistrationComponent implements OnInit, OnDestroy {
   registrationData: any = {username: '', password: '', userType: '', tournamentType: []};
   tournamentType: any[] = [];
   isError: boolean = false;
-  isAlertShown: boolean = false;
   disableRegBtn: boolean = false;
+  isLoadingAlert: boolean = false;
+  isSuccessAlert: boolean = false;
+  isAcctExisting: boolean = false;
   
   constructor(
     private router: Router,
@@ -42,6 +44,12 @@ export class RegistrationComponent implements OnInit, OnDestroy {
 
   registrationBtnClick() {
 
+    this.disableRegBtn = true;
+    this.isLoadingAlert = true;
+    this.validateEmail();
+    this.validateUsername();
+    this.validateConfirmPassword();
+
     this.registrationData = {
       email: this.email,
       username: this.username,
@@ -50,31 +58,36 @@ export class RegistrationComponent implements OnInit, OnDestroy {
       tournamentType: this.tournamentType
     };
 
-    this.validateEmail();
-    this.validateUsername();
-    this.validateConfirmPassword();
-
     if ((this.password === this.confirmPassword) && !this.isEmptyEmail && this.isEmailValid && !this.isEmptyUsername) {
       this.isIncorrectPassword = false;
       this.isEmptyEmail = false;
       this.isEmptyUsername = false;
       this.isPwordLengthInvalid = false;
 
-      this.subscription = this.dataService.createUser(this.registrationData).subscribe(
-        (res: any) => {
-        if (res) {
-          const data = {'playerId': res._id , 'tokenCount': 10, 'refId': this.dataService.getRefId(), 'transactionDate': this.dataService.getCurrentDate()};
-          this.dataService.addCreditToUser(data).subscribe((res: any) => {
-            this.isAlertShown = true;
-            this.disableRegBtn = true;
-            setTimeout(() => {
-              this.router.navigate(['/login']);
-            }, 3000);
-          })
+      this.subscription = this.dataService.createUser(this.registrationData).subscribe({
+        next: (res: any) => {
+          console.log(res);
+          // mes: 'Account Already exists';
+          if(res.mes) {
+            this.isError = true;
+            this.isAcctExisting = true;
+            this.disableRegBtn = false;
+          }
+          if (res._id) {
+            const data = {'playerId': res._id , 'tokenCount': 10, 'refId': this.dataService.getRefId(), 'transactionDate': this.dataService.getCurrentDate()};
+            this.dataService.addCreditToUser(data).subscribe((res: any) => {
+              this.isLoadingAlert = false;
+              this.isSuccessAlert = true;
+              setTimeout(() => {
+                this.router.navigate(['/login']);
+              }, 3000);
+            })
+          }
+        },
+        error: (error) => {
+          this.isError = true;
         }
-      },
-      err => {this.isError = true;}
-      );
+      });
     } 
   }
 

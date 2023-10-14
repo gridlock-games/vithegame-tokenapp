@@ -1,5 +1,5 @@
 import { Component, OnInit } from '@angular/core';
-import { ActivatedRoute, Router, RouterOutlet } from '@angular/router';
+import { Router } from '@angular/router';
 import { DataService } from '../service/data.service';
 import { AuthService } from '../auth/auth.service';
 
@@ -18,10 +18,12 @@ export class PaymentComponent implements OnInit {
   storeName: string | null = '';
   refId: string | null = '';
   currentDate: string | null = '';
+  disablePayBtn: boolean = false;
+  isLoadingAlert: boolean = true;
+  isError: boolean = false;
 
   constructor(
     private router: Router,
-    private activatedRoute: ActivatedRoute,
     private dataService: DataService,
     private authService: AuthService) { }
 
@@ -41,8 +43,11 @@ export class PaymentComponent implements OnInit {
   }
 
   payment() {
+    this.isInvalidAmt = (this.amount > this.stars);
 
     if (this.amount < this.stars) {
+      this.isLoadingAlert = true;
+      this.disablePayBtn = true;
       this.isInvalidAmt = false;
       this.dataService.setAmountPaidSession(this.amount);
       this.refId = this.dataService.getRefId();
@@ -52,15 +57,20 @@ export class PaymentComponent implements OnInit {
         'refId': this.refId, 'transactionDate': this.currentDate
       };
       this.dataService.setRefIdSession(this.refId);
-      this.dataService.userPaymentToStore(data).subscribe(response => {
-        if (response) {
-          this.router.navigate(['/success']);
-        } else {
+
+      this.dataService.userPaymentToStore(data).subscribe({
+        next: (response) => {
+          if (response) {
+            this.isLoadingAlert = false;
+            this.router.navigate(['/success']);
+          }
+        },
+        error: (error) => {
+          this.isError = true;
           this.router.navigate(['/maintenance']);
         }
-      })
-    } else {
-      this.isInvalidAmt = true;
+      });
+
     }
   }
 

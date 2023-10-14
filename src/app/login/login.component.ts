@@ -17,6 +17,7 @@ export class LoginComponent implements OnInit {
   isVerified: boolean = false;
   isLoginRequestSent: boolean = false;
   isAddCreditSuccess: boolean = false;
+  disableLoginBtn: boolean = false;
 
   constructor(
     private router: Router,
@@ -30,19 +31,13 @@ export class LoginComponent implements OnInit {
   ngOnInit(): void {}
 
   loginBtnClick() {
+    this.disableLoginBtn = true;
     const data = {username: this.username, password: this.password};
 
     this.dataService.loginRequest(data).subscribe((response: any) => {
-      console.log(response);
       this.isLoginRequestSent = true;
       this.isVerified = (response.isVerified === undefined || response.isVerified) ? true : false;
       this.incorrectCreds = (response.isVerified === undefined && response.login === false) ? true : false;
-
-      // const addCreditData = {playerId: response.userId, tokenCount: 10, refId: this.dataService.getRefId(), transactionDate: this.dataService.getCurrentDate()};
-      // this.dataService.addCreditToUser(addCreditData).subscribe((res: any) => {
-      //   this.isAddCreditSuccess = res;
-      // });
-      // && this.isAddCreditSuccess
       
       if (response.login) {
         this.authService.login().subscribe(() => {

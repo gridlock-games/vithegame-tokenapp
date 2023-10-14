@@ -24,6 +24,10 @@ label, .text-vi-gold {
     background-color: #A40000;
 }
 
+.banner-height {
+    height: 80px;
+}
+
 .btn-default {
     color: white !important;
     background-color: #A40000 !important;

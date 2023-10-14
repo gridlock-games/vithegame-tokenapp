@@ -1,23 +1,28 @@
+<div class="bg-vi-red position-absolute top-0 text-center w-100 banner-height">
+  <p class="mt-5">Scan QR</p>
+  <button class="btn-close btn-close-white position-absolute top-0 end-0 m-2" (click)="home()"></button>
+</div>
 
 <div class="container text-center h-100">
 
-    <div class="row py-4 h-auto">
-        <div class="row justify-content-end">
-          <button class="btn-close" (click)="home()"></button>
-        </div>
-    </div>
+  <div class="row justify-content-center align-items-center h-75">
+    <div class="col">
 
-    <div class="row justify-content-center align-items-center h-75">
-      <div class="col">
-       
-        <ngx-scanner-qrcode #action="scanner" (event)="onEvent($event)"></ngx-scanner-qrcode>
-        <p class="mt-3" *ngIf="action.isLoading">⌛ Loading...</p>
-        <p class="mt-3" *ngIf="isError">Error reading QR Code. Please try again.</p>
-
-        <!-- QR GENERATOR -->
-        <!-- <qrcode [qrdata]="myAngularxQrCode" [width]="256" [errorCorrectionLevel]="'M'"></qrcode> -->
-
+      <div *ngIf="isRedirecting" class="alert alert-warning w-75 mx-auto mt-5" role="alert">
+        <span class="spinner-border spinner-border-sm text-warning" role="status" aria-hidden="true"></span>
+        Redirecting...
       </div>
+
+      <div *ngIf="!isRedirecting">
+        <ngx-scanner-qrcode class="h-100" #action="scanner" (event)="onEvent($event)"></ngx-scanner-qrcode>
+        <div *ngIf="action.isLoading" class="text-warning mt-3">
+          <span class="spinner-border spinner-border-sm text-warning" role="status" aria-hidden="true"></span>
+          Loading...
+        </div>
+        <p class="mt-3" *ngIf="isError">Error reading QR Code. Please try again.</p>
+      </div>
+
     </div>
-    
+  </div>
+
 </div>

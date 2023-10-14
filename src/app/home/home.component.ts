@@ -14,6 +14,8 @@ export class HomeComponent implements OnInit {
   username: string | null = null;
   userId: string | null = null;
   stars: number = 0;
+  disablePayBtn: boolean = false;
+  isBalanceLoading: boolean = true;
 
   constructor(
     private dataService: DataService,
@@ -22,8 +24,6 @@ export class HomeComponent implements OnInit {
   ) {
     this.userId = this.dataService.getUserIdSession();
     this.username = this.dataService.getUsernameSession();
-
-    console.log(this.userId);
   }
 
 
@@ -40,6 +40,7 @@ export class HomeComponent implements OnInit {
     this.dataService.getStarsBalance(this.userId).subscribe((response: any) => {
       for (let i = 0; i < response.length; i++) {
         this.stars += response[i].token;
+        this.isBalanceLoading = false;
       }
 
       this.dataService.setStarsSession(this.stars);
@@ -47,6 +48,7 @@ export class HomeComponent implements OnInit {
   }
 
   goToQrScanner() {
+    this.disablePayBtn = true;
     this.router.navigate(['/qrcodescanner']);
   }
 
