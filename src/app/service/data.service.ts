@@ -6,7 +6,7 @@ import { Injectable } from '@angular/core';
 })
 export class DataService {
 
-  baseUrl = 'http://localhost:7070';
+  baseUrl = '38.60.245.223';
   username: string = '';
 
   constructor(private httpClient: HttpClient) { }
