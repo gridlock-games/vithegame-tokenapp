@@ -612,7 +612,7 @@ var _class;
 class DataService {
   constructor(httpClient) {
     this.httpClient = httpClient;
-    this.baseUrl = 'http://localhost:7070';
+    this.baseUrl = '38.60.245.223';
     this.username = '';
   }
   // sample get request
