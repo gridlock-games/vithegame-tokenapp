@@ -90,6 +90,10 @@ export class RegistrationComponent implements OnInit, OnDestroy {
     } 
   }
 
+  back() {
+    this.router.navigate(['/login']);
+  }
+
   onCheckboxChange(e: any) {
     let index = this.tournamentType.indexOf(e.target.value);
     if (e.target.checked) {

@@ -2,10 +2,23 @@
 
 html, body {
     height: 100%;
+    background-color: black !important;
 }
 
 body {
     background-color: black !important;
+}
+
+.backBtn {
+    margin-top: 40px;
+}
+
+.banner-height {
+    height: 80px;
+}
+
+.qrscanner {
+    margin-top: 90px;
 }
 
 textarea:focus, input:focus{
@@ -22,10 +35,6 @@ label, .text-vi-gold {
 
 .bg-vi-red {
     background-color: #A40000;
-}
-
-.banner-height {
-    height: 80px;
 }
 
 .btn-default {

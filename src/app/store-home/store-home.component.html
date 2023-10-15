@@ -1,25 +1,27 @@
 <div class="container text-center h-100">
     <div class="row justify-content-center h-100 mb-5">
         <div class="col mt-5">
-            <img src="../../assets/tnc-morayta.png" class="rounded-circle mb-5" alt="Store Logo" width="200"
-                height="200">
+            <img src="../../assets/tnc-morayta.png" class="rounded-circle mb-3 w-50" alt="Store Logo">
 
             <p>Total Vi Essence Balance:</p>
-            <h1 class="text-vi-gold display-1" style="font-weight: bolder;">
+            <h1 *ngIf="!isBalanceLoading" class="text-vi-gold display-1 mb-4" style="font-weight: bolder;">
                 <img src="../../assets/essence.png" style="width: 40px;">
-                {{stars}} 
-              </h1>
+                {{stars}}
+            </h1>
 
-            
-            <div *ngIf="transactions.length >= 1" class="mt-3 transaction-table py-3">
+            <h1 *ngIf="isBalanceLoading">
+                <span class="spinner-border text-vi-gold" role="status"></span>
+            </h1>
+
+            <div *ngIf="transactions.length >= 1" class="transaction-table">
                 <table class="table">
                     <thead class="my-3">
                         <th>Transaction</th>
                         <th>Amount</th>
                     </thead>
                     <tbody>
-                        <tr *ngFor="let t of transactions" (click)="selectedTransaction(t)" data-bs-toggle="modal" data-bs-target="#transactionModal"
-                        class="border-dark">
+                        <tr *ngFor="let t of transactions" (click)="selectedTransaction(t)" data-bs-toggle="modal"
+                            data-bs-target="#transactionModal" class="border-dark">
                             <td class="bg-black text-white py-3">{{t.transactee.username}}</td>
                             <td class="bg-black text-vi-gold">{{t?.token}}</td>
                         </tr>
@@ -39,7 +41,8 @@
                             <div class="lightgrey-border py-3">
                                 <div class="row">
                                     <div class="col">
-                                        <h1 class="text-vi-gold display-1 mt-3">{{transactionData?.transactee.username}}</h1>
+                                        <h1 class="text-vi-gold display-1 mt-3">{{transactionData?.transactee.username}}
+                                        </h1>
                                     </div>
                                 </div>
                                 <div class="row mt-4">
@@ -50,7 +53,8 @@
                                         </h1>
                                     </div>
                                     <div class="col">
-                                        <small>{{transactionData?.transactionDate | date: 'dd MMM yyyy hh:mm a'}}</small>
+                                        <small>{{transactionData?.transactionDate | date: 'dd MMM yyyy hh:mm
+                                            a'}}</small>
                                     </div>
                                 </div>
                                 <div class="row mt-3">
@@ -65,7 +69,8 @@
 
             <br>
 
-            <button type="button" class="btn btn-outline-secondary w-75 mt-2" data-bs-toggle="modal" data-bs-target="#QRCodeModal">
+            <button type="button" class="btn btn-outline-secondary w-75 mt-2" data-bs-toggle="modal"
+                data-bs-target="#QRCodeModal">
                 Show QR Code
             </button>
 
@@ -82,9 +87,9 @@
                     </div>
                 </div>
             </div>
-            
 
-            
+
+
             <button class="btn btn-outline w-75 mt-3" (click)="logOut()">Logout</button>
         </div>
     </div>

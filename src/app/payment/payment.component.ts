@@ -38,8 +38,8 @@ export class PaymentComponent implements OnInit {
     }
   }
 
-  cancel() {
-    this.router.navigate(['/home']);
+  back() {
+    this.router.navigate(['/qrcodescanner']);
   }
 
   payment() {
