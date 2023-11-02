@@ -1,6 +1,8 @@
 <div class="bg-vi-red position-absolute top-0 text-center w-100 banner-height">
+  <button (click)="home()" class="btn btn-transparent text-white position-absolute top-0 start-0 backBtn" type="button">
+    <h4>←</h4>
+  </button>
   <p class="mt-5">Scan QR</p>
-  <button class="btn-close btn-close-white position-absolute top-0 end-0 m-2" (click)="home()"></button>
 </div>
 
 <div class="container text-center h-100">
@@ -14,7 +16,7 @@
       </div>
 
       <div *ngIf="!isRedirecting">
-        <ngx-scanner-qrcode class="h-100" #action="scanner" (event)="onEvent($event)"></ngx-scanner-qrcode>
+        <ngx-scanner-qrcode class="h-100 qrscanner" #action="scanner" (event)="onEvent($event)"></ngx-scanner-qrcode>
         <div *ngIf="action.isLoading" class="text-warning mt-3">
           <span class="spinner-border spinner-border-sm text-warning" role="status" aria-hidden="true"></span>
           Loading...

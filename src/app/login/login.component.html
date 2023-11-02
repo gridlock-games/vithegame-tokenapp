@@ -19,7 +19,8 @@
         Account not verified. Please check your email.
       </div>
 
-      <button *ngIf="!disableLoginBtn" type="button" class="btn btn-default mt-5 w-100 p-2" (click)="loginBtnClick()">Login</button>
+      <button *ngIf="!disableLoginBtn" type="button" class="btn btn-default mt-5 w-100 p-2"
+        (click)="loginBtnClick()">Login</button>
 
       <button *ngIf="disableLoginBtn" type="button" class="mt-5 btn btn-default w-100 p-2" disabled>
         <span class="spinner-border spinner-border-sm" role="status" aria-hidden="true"></span>
@@ -30,7 +31,10 @@
 
       <button type="button" class="btn btn-outline mt-1 w-100 p-2" [disabled]="disableLoginBtn"
         (click)="registrationBtnClick()">Register</button>
+    </div>
 
+    <div class="position-absolute bottom-0 text-secondary w-100">
+      Vi essence app is still in Beta. For any unquiries, send email to support@gridlock-games.com
     </div>
   </div>
 </div>

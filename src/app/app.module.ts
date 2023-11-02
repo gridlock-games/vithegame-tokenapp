@@ -50,6 +50,7 @@ const routes: Routes = [
   ],
   imports: [
     RouterModule.forRoot(routes),
+    RouterModule.forRoot(routes, { useHash: true }),
     BrowserModule,
     AppRoutingModule,
     HttpClientModule,

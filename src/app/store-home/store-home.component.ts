@@ -16,6 +16,7 @@ export class StoreHomeComponent implements OnInit {
   stars: number = 0;
   transactions: any[] = [];
   transactionData: any;
+  isBalanceLoading: boolean = true;
 
   @ViewChild('action') action!: NgxScannerQrcodeComponent;
   myAngularxQrCode: any;
@@ -32,7 +33,9 @@ export class StoreHomeComponent implements OnInit {
   }
 
   ngOnInit() {
+    this.isBalanceLoading = true;
     this.dataService.getStarsBalance(this.userId).subscribe((response: any) => {
+      this.isBalanceLoading = false;
       this.transactions = response;
       for (let i = 0; i < response.length; i++) {
         this.stars += response[i].token;

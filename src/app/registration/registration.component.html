@@ -1,4 +1,8 @@
-<div class="container text-center h-100">
+<button (click)="back()" class="btn btn-transparent text-white position-absolute top-0 start-0" type="button">
+    <h4>←</h4>
+</button>
+
+<div class="container text-center h-100 registration">
     <div class="d-flex justify-content-center align-items-center h-100">
         <div *ngIf="isSuccessAlert" class="alert alert-success position-absolute top-0" role="alert">
             Registration success! Please check email for account verification.
@@ -53,8 +57,8 @@
                 </div>
             </div>
 
-            <button *ngIf="!disableRegBtn" type="button" class="btn btn-default mt-5 w-100 p-2" (click)="registrationBtnClick()"
-                [disabled]="disableRegBtn">Register</button>
+            <button *ngIf="!disableRegBtn" type="button" class="btn btn-default mt-5 w-100 p-2"
+                (click)="registrationBtnClick()" [disabled]="disableRegBtn">Register</button>
 
             <button *ngIf="disableRegBtn" type="button" class="mt-5 btn btn-default w-100 p-2" disabled>
                 <span class="spinner-border spinner-border-sm" role="status" aria-hidden="true"></span>
@@ -66,9 +70,13 @@
             </div>
 
             <div *ngIf="isError && isAcctExisting" class="form-text text-danger">
-                Account already exists. Please use another email. 
+                Account already exists. Please use another email.
             </div>
 
+        </div>
+
+        <div class="position-absolute bottom-0 text-secondary w-100">
+            Vi essence app is still in Beta. For any unquiries, send email to support@gridlock-games.com
         </div>
     </div>
 </div>
